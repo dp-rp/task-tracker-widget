@@ -10,6 +10,8 @@ def get_ado_work_items():
     # get sensitive config
     personal_access_token = os.environ['ADO_PERSONAL_ACCESS_TOKEN']
     organization_url = os.environ['ADO_ORGANIZATION_URL']
+    team_name = os.environ['ADO_TEAM_NAME']
+    project_name = os.environ['ADO_PROJECT_NAME']
 
     # Create a connection to the org
     credentials = BasicAuthentication('', personal_access_token)
@@ -20,7 +22,13 @@ def get_ado_work_items():
 
     #query workitems, custom field 'RTCID' has a certain specific unique value
     work_item_tracking_client = connection.clients.get_work_item_tracking_client()
-    query  = "SELECT [System.Id], [System.WorkItemType], [System.Title], [System.AssignedTo], [System.State], [System.Tags] FROM workitems WHERE [System.State] = 'In Progress' AND [System.AssignedTo] = @me"
+    query = f"""
+        SELECT [System.Id], [System.WorkItemType], [System.Title], [System.AssignedTo], [System.State], [System.Tags]
+        FROM workitems
+        WHERE [System.State] = 'In Progress'
+            AND [System.AssignedTo] = @me
+            AND [System.IterationPath] = @CurrentIteration('[{project_name}]\\{team_name}')
+    """
     #convert query str to wiql
     wiql = Wiql(query=query)
     query_results = work_item_tracking_client.query_by_wiql(wiql).work_items
