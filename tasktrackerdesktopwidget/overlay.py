@@ -38,6 +38,9 @@ class MovableOverlay:
         self.context_menu.add_command(label="Exit", command=self.close_window)
         self.root.bind('<Button-3>', self.show_context_menu)
 
+        # Show the "movable" cursor when hovering over the window
+        self.root.config(cursor="fleur")
+
     def on_drag_start(self, event):
         self.drag_start_x = event.x
         self.drag_start_y = event.y
