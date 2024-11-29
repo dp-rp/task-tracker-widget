@@ -7,13 +7,20 @@ I have ADHD, and I pretty often forget which task I'm working on when I context 
 
 ## Getting started
 
-Install
+**Install**
 
 ```bash
 # TODO: pip install 'some-package-name'
 ```
 
-<!-- TODO: write getting started -->
+**Configuration**
+
+<!-- TODO: write up steps for ADO work items to get Personal Access Token, along with screenshots showing where to go in the ADO web UI -->
+**TODO**
+
+**[anything else important]**
+
+<!-- TODO: write anything else important for getting started -->
 **TODO**
 
 ## Development
