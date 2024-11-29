@@ -8,6 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.9"
 azure-devops = "^7.1.0b4"
+python-dotenv = "^1.0.1"
 
 
 [build-system]
