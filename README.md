@@ -21,7 +21,8 @@ Install
 ### Installation
 
 ```bash
-cd <repository_root>
+git clone <repository_url>
+cd <root_dir_of_local_repository>
 poetry install
 ```
 
