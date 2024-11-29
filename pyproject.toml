@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "task-tracker-desktop-widget"
+version = "0.1.0"
+description = "A hacky desktop widget that displays tasks (e.g. in-progress) from a remote ticketing system"
+authors = ["dp-rp <155602873+dp-rp@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
