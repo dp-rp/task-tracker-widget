@@ -7,5 +7,26 @@ I have ADHD, and I pretty often forget which task I'm working on when I context 
 
 ## Getting started
 
+Install
+
+```bash
+# TODO: pip install 'some-package-name'
+```
+
 <!-- TODO: write getting started -->
 **TODO**
+
+## Development
+
+### Installation
+
+```bash
+cd <repository_root>
+poetry install
+```
+
+### Usage
+
+```bash
+poetry run python -m tasktrackerdesktopwidget
+```
