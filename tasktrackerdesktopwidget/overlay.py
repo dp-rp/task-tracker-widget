@@ -1,6 +1,13 @@
-# Note: initially tkinter skeleton generated with the assistance of Qwen2.5-coder-32B-Instruct, because it's at lot faster at writing tkinter code than me. Cheers Qwen!
+# note: initial tkinter skeleton with an incrementing counter generated with the assistance of Qwen2.5-coder-32B-Instruct, because it's a better at writing good tkinter code faster than me. Cheers Qwen!
 
 import tkinter as tk
+from .generic.workitems import get_generic_work_items
+
+# TODO: get the output (my in-progress work items) and make it display in a small movable, resizable window that's always-on-top that updates once every 5-10 minutes
+# ... (and it should also go invisible for a couple seconds when moused over, just like how I have ElevenClock configured)
+
+# TODO: make this configurable and also something a little less frequent (a web request every 10 seconds is a bit overkill)
+POLL_INTERVAL_MS = 10000  # milliseconds
 
 class MovableOverlay:
     def __init__(self, root):
@@ -9,8 +16,8 @@ class MovableOverlay:
         self.root.attributes('-topmost', True)  # Keep the window on top
         self.root.geometry('+{}+{}'.format(root.winfo_screenwidth() - 150, root.winfo_screenheight() - 100))  # Position in bottom right corner
         
-        self.counter = 0
-        self.label = tk.Label(root, text=str(self.counter), font=('Helvetica', 18), bg='white', fg='black')
+        self.work_items_text = "loading..."
+        self.label = tk.Label(root, text=str(self.work_items_text), font=('Helvetica', 12), bg='white', fg='black')
         self.label.pack(padx=10, pady=10)
         
         self.start_counter()
@@ -34,9 +41,21 @@ class MovableOverlay:
         self.root.geometry(f"+{x}+{y}")
     
     def start_counter(self):
-        self.counter += 1
-        self.label.config(text=str(self.counter))
-        self.root.after(10000, self.start_counter)  # Schedule the function to be called after 10 seconds
+        work_items = get_generic_work_items()
+
+        # TODO: display some text when info is getting re-polled
+        # self.work_items_text = "polling..."
+        # self.label.config(text=str(self.work_items_text))
+        # sleep(0.2)
+
+        self.work_items_text = "\n----\n".join([
+            f"{work_item['uid']}: {work_item['title']} ({work_item['assigned_to']['unique_name'] if 'assigned_to' in work_item else 'no-one'})"
+            for work_item
+            in work_items
+        ])
+        self.label.config(text=str(self.work_items_text))
+
+        self.root.after(POLL_INTERVAL_MS, self.start_counter)  # Schedule the function to be called after 10 seconds
     
     def show_context_menu(self, event):
         try:
@@ -47,7 +66,10 @@ class MovableOverlay:
     def close_window(self):
         self.root.destroy()
 
-if __name__ == "__main__":
+def main():
     root = tk.Tk()
     app = MovableOverlay(root)
     root.mainloop()
+
+if __name__ == "__main__":
+    main()
