@@ -1,9 +1,7 @@
-from azure.devops.connection import Connection
-from msrest.authentication import BasicAuthentication
-from azure.devops.v7_1.work_item_tracking.models import Wiql
 import pprint
 from dotenv import load_dotenv
 import os
+from .ado.getworkitems import get_ado_work_items
 
 remote_type_envvar_key = "TTW_REMOTE_TYPE"
 
@@ -13,28 +11,10 @@ def main():
     _remote_type = os.getenv(remote_type_envvar_key)
 
     if _remote_type == "ado-work-item":
-        # TODO: schema validation
+        ado_work_items = get_ado_work_items()
         
-        # get sensitive config
-        personal_access_token = os.getenv('ADO_PERSONAL_ACCESS_TOKEN')
-        organization_url = os.getenv('ADO_ORGANIZAION_URL')
-
-        # Create a connection to the org
-        credentials = BasicAuthentication('', personal_access_token)
-        connection = Connection(base_url=organization_url, creds=credentials)
-
-        # Get a client (the "core" client provides access to projects, teams, etc)
-        core_client = connection.clients.get_core_client()
-
-        #query workitems, custom field 'RTCID' has a certain specific unique value
-        work_item_tracking_client = connection.clients.get_work_item_tracking_client()
-        query  = "SELECT [System.Id], [System.WorkItemType], [System.Title], [System.AssignedTo], [System.State], [System.Tags] FROM workitems WHERE [System.State] = 'In Progress' AND [System.AssignedTo] = @me"
-        #convert query str to wiql
-        wiql = Wiql(query=query)
-        query_results = work_item_tracking_client.query_by_wiql(wiql).work_items
-        #get the results via title
-        for item in query_results:
-            work_item = work_item_tracking_client.get_work_item(item.id)
+        # TODO: remove later - for debugging and testing
+        for work_item in ado_work_items:
             print("-------")
             # print(work_item.__str__())
             # pprint.pprint(work_item.fields['System.Title'])
