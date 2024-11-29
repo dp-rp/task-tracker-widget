@@ -17,8 +17,8 @@ class MovableOverlay:
         self.root.geometry('+{}+{}'.format(root.winfo_screenwidth() - 150, root.winfo_screenheight() - 100))  # Position in bottom right corner
         
         self.work_items_text = "loading..."
-        self.label = tk.Label(root, text=str(self.work_items_text), font=('Helvetica', 12), bg='white', fg='black')
-        self.label.pack(padx=10, pady=10)
+        self.label = tk.Label(root, text=str(self.work_items_text), font=('Helvetica', 8), bg='white', fg='black', justify=tk.LEFT)
+        self.label.pack(padx=5, pady=5)
         
         self.start_counter()
         
