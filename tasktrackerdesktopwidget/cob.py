@@ -26,8 +26,10 @@ def get_time_until_cob_msg():
     # Calculate the number of hours left
     seconds_left = time_difference.total_seconds()
     hours_left = f"{seconds_left / 3600:01.1f}"
-    text = f"There are {hours_left} hours left until close of business ({cob_hour:02}:{cob_minute:02})" + (' ---- ' + PAST_COB_MESSAGE) if seconds_left < 0 else ''
-    # HACK: newline is getting stripped out for some reason unless I do it this way
-    text += "\n"
+    text = (
+        f"There are {hours_left} hours left until close of business ({cob_hour:02}:{cob_minute:02})"
+        + f"{' ---- ' + PAST_COB_MESSAGE if seconds_left < 0 else ''}"
+        + "\n"
+    )
 
     return text
