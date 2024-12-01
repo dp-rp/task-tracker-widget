@@ -22,10 +22,12 @@ class MovableOverlay:
         self.root.overrideredirect(True)  # Remove window decorations
         self.root.attributes('-topmost', True)  # Keep the window on top
         self.root.geometry('+{}+{}'.format(root.winfo_screenwidth() - 150, root.winfo_screenheight() - 100))  # Position in bottom right corner
+        # TODO: set the max width of the window to 200px, but let the height be whatever it is by default
+        # self.root.maxsize(200,None)
         
         self.work_items_text = "loading..."
-        self.label = tk.Label(root, text=str(self.work_items_text), font=('Helvetica', 8), bg='white', fg='black', justify=tk.LEFT)
-        self.label.pack(padx=5, pady=5)
+        self.label = tk.Label(root, text=str(self.work_items_text), font=('Helvetica', 8), bg='#333333', fg='white', justify=tk.LEFT)
+        self.label.pack(padx=3, pady=3)
         
         self.start_counter()
         
@@ -38,8 +40,12 @@ class MovableOverlay:
         self.context_menu.add_command(label="Exit", command=self.close_window)
         self.root.bind('<Button-3>', self.show_context_menu)
 
-        # Show the "movable" cursor when hovering over the window
-        self.root.config(cursor="fleur")
+        self.root.config(
+            # Show the "movable" cursor when hovering over the window
+            cursor="fleur",
+            # Update the window's background colour
+            background="#e6b905"
+        )
 
     def on_drag_start(self, event):
         self.drag_start_x = event.x
