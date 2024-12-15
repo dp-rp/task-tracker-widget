@@ -28,6 +28,7 @@ def get_ado_work_items():
         WHERE [System.State] = 'In Progress'
             AND [System.AssignedTo] = @me
             AND [System.IterationPath] = @CurrentIteration('[{project_name}]\\{team_name}')
+        ORDER BY [Microsoft.VSTS.Common.BacklogPriority]
     """
     #convert query str to wiql
     wiql = Wiql(query=query)
