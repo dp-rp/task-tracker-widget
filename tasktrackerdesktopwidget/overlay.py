@@ -2,6 +2,7 @@
 # ... because it's better at writing good tkinter code faster than me. Cheers Qwen!
 
 import tkinter as tk
+import customtkinter as ctk
 from .generic.workitems import get_generic_work_items
 from .cob import get_time_until_cob_msg
 
@@ -26,7 +27,8 @@ class MovableOverlay:
         # self.root.maxsize(200,None)
         
         self.work_items_text = "loading..."
-        self.label = tk.Label(root, text=str(self.work_items_text), font=('Helvetica', 8), bg='#333333', fg='white', justify=tk.LEFT)
+        
+        self.label = ctk.CTkLabel(root, text=str(self.work_items_text), font=('Helvetica', 12), fg_color='#333333', text_color='white', justify=ctk.LEFT)
         self.label.pack(padx=3, pady=3)
         
         self.start_counter()
@@ -40,7 +42,7 @@ class MovableOverlay:
         self.context_menu.add_command(label="Exit", command=self.close_window)
         self.root.bind('<Button-3>', self.show_context_menu)
 
-        self.root.config(
+        self.root.configure(
             # Show the "movable" cursor when hovering over the window
             cursor="fleur",
             # Update the window's background colour
@@ -59,7 +61,7 @@ class MovableOverlay:
     def start_counter(self):
         # TODO: display some text when info is getting re-polled
         # self.work_items_text = "polling..."
-        # self.label.config(text=str(self.work_items_text))
+        # self.label.configure(text=str(self.work_items_text))
         # self.root.update()
 
         # Generate a string of in-progress work items
@@ -84,7 +86,7 @@ class MovableOverlay:
             + '\n'
             + work_items_str
         )
-        self.label.config(text=str(self.work_items_text))
+        self.label.configure(text=str(self.work_items_text))
 
         self.root.after(POLL_INTERVAL_MS, self.start_counter)  # Schedule the function to be called after 10 seconds
 
@@ -98,7 +100,7 @@ class MovableOverlay:
         self.root.destroy()
 
 def main():
-    root = tk.Tk()
+    root = ctk.CTk()
     app = MovableOverlay(root)
     root.mainloop()
 
