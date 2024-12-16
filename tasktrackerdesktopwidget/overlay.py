@@ -13,8 +13,8 @@ from .cob import get_time_until_cob_msg
 # TODO: display a metric for [HOURS LOGGED SO FAR] vs [HOURS LOGGED GOAL]. [HOURS LOGGED GOAL] will be
 # ... `[DAILY_HOUR_LOG_GOAL] * [NUMBER_OF_DAYS_INTO_CURRENT_ITERATION]` (current iteration = current sprint)
 
-# TODO: make this configurable and also something a little less frequent (a web request every 10 seconds is a bit overkill)
-POLL_INTERVAL_MS = 10000  # milliseconds
+# TODO: make this configurable and maybe less frequent by default (60000 milliseconds is a web request every minute) (also make sure request respect any retry-after headers in responses)
+POLL_INTERVAL_MS = 60000  # milliseconds
 
 
 class MovableOverlay:
