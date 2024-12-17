@@ -46,10 +46,12 @@ class MovableOverlay:
         self.root.bind('<Button-3>', self.show_context_menu)
 
         # When cursor hovering
-        self.root.bind("<Enter>", func=self.on_hover_start)
+        # TODO: re-enable transparency on hover once have diagnosed how to fix bug where off-screen text doesn't render correctly when transparency changes and moved
+        # self.root.bind("<Enter>", self.on_hover_start)
 
         # When cursor stops hovering
-        self.root.bind("<Leave>", func=self.on_hover_end)
+        # TODO: re-enable transparency on hover once have diagnosed how to fix bug where off-screen text doesn't render correctly when transparency changes and moved
+        # self.root.bind("<Leave>", self.on_hover_end)
 
         self.root.configure(
             # Show the "movable" cursor when hovering over the window
