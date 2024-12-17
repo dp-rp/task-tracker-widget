@@ -75,6 +75,11 @@ class MovableOverlay:
         self.root.geometry(f"+{x}+{y}")
     
     def start_counter(self):
+        self.refresh_work_item_list()
+
+        self.root.after(POLL_INTERVAL_MS, self.start_counter)  # Schedule the function to be called after 10 seconds
+        
+    def refresh_work_item_list(self):
         # TODO: display some text when info is getting re-polled
         # self.work_items_text = "polling..."
         # self.label.configure(text=str(self.work_items_text))
