@@ -22,7 +22,8 @@ class MovableOverlay:
         self.root = root
         self.root.overrideredirect(True)  # Remove window decorations
         self.root.attributes('-topmost', True)  # Keep the window on top
-        self.root.geometry('+{}+{}'.format(root.winfo_screenwidth() - 150, root.winfo_screenheight() - 100))  # Position in bottom right corner
+        # TODO: fix window alignment being not quite right due to timing of getting window dims vs them changing from label content updating
+        self.root.geometry(f"+{root.winfo_screenwidth() - root.winfo_width() - 5}+{(root.winfo_screenheight()*0.75) - (root.winfo_height()/2) - 5}")  # Position in bottom right corner
         # TODO: set the max width of the window to 200px, but let the height be whatever it is by default
         # self.root.maxsize(200,None)
         
