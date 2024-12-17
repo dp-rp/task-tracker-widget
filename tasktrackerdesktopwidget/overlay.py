@@ -57,7 +57,7 @@ class MovableOverlay:
             # Show the "movable" cursor when hovering over the window
             cursor="fleur",
             # Update the window's background colour
-            background="#e6b905"
+            fg_color="#242424"
         )
 
 
