@@ -15,6 +15,8 @@ from .cob import get_time_until_cob_msg
 
 # TODO: make this configurable and maybe less frequent by default (60000 milliseconds is a web request every minute) (also make sure request respect any retry-after headers in responses)
 POLL_INTERVAL_MS = 60000  # milliseconds
+WINDOW_ALPHA_WITH_HOVER = 0.3
+WINDOW_ALPHA_WITHOUT_HOVER = 1.0
 
 
 class MovableOverlay:
@@ -43,12 +45,25 @@ class MovableOverlay:
         self.context_menu.add_command(label="Exit", command=self.close_window)
         self.root.bind('<Button-3>', self.show_context_menu)
 
+        # When cursor hovering
+        self.root.bind("<Enter>", func=self.on_hover_start)
+
+        # When cursor stops hovering
+        self.root.bind("<Leave>", func=self.on_hover_end)
+
         self.root.configure(
             # Show the "movable" cursor when hovering over the window
             cursor="fleur",
             # Update the window's background colour
             background="#e6b905"
         )
+
+
+    def on_hover_start(self, e):
+        self.root.attributes('-alpha', WINDOW_ALPHA_WITH_HOVER)
+
+    def on_hover_end(self, e):
+        self.root.attributes('-alpha', WINDOW_ALPHA_WITHOUT_HOVER)
 
     def on_drag_start(self, event):
         self.drag_start_x = event.x
