@@ -31,7 +31,7 @@ class MovableOverlay:
         
         self.work_items_text = "loading..."
         
-        self.label = ctk.CTkLabel(root, text=str(self.work_items_text), font=('Helvetica', 12), fg_color='#333333', text_color='white', justify=ctk.LEFT)
+        self.label = ctk.CTkLabel(root, text=str(self.work_items_text), font=('Helvetica', 12), fg_color='#333333', text_color='white', justify=ctk.LEFT, wraplength=int(self.root.winfo_screenwidth()/6))
         self.label.pack(padx=3, pady=3)
         
         self.start_counter()
