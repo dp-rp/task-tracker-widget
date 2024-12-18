@@ -10,23 +10,19 @@ bad_keywords = os.environ["DEV_BAD_KEYWORDS"].split(";")
 
 
 def check_files():
-    staged_files = (
-        subprocess.check_output(["git", "diff", "--cached", "--name-only"])
-        .decode("utf-8")
-        .splitlines()
-    )
+    filepaths_to_check = sys.argv[1:]
     issues = []
-    for file in staged_files:
+    for filepath in filepaths_to_check:
         try:
-            with open(file, "r", encoding="utf-8") as f:
+            with open(filepath, "r", encoding="utf-8") as f:
                 for line in f:
                     for bad_keyword in bad_keywords:
                         if bad_keyword in line:
                             issues.append(
-                                f"Found '{bad_keyword}' in '{file}':\n    {line.lstrip()}"
+                                f"Found '{bad_keyword}' in '{filepath}':\n    {line.lstrip()}"
                             )
         except Exception as e:
-            print(f"Error checking {file}: {e}")
+            print(f"Error checking {filepath}: {e}")
             return 1
     if len(issues) != 0:
         for issue in issues:
