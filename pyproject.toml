@@ -10,6 +10,8 @@ python = "^3.9"
 azure-devops = "^7.1.0b4"
 python-dotenv = "^1.0.1"
 customtkinter = "^5.2.2"
+pyyaml = "^6.0.2"
+pre-commit = "^4.0.1"
 
 
 [build-system]
