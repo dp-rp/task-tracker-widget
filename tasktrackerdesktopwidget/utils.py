@@ -9,5 +9,6 @@ with open("tasktrackerdesktopwidget/config/messages.yaml") as stream:
         print("YAML error!")
         print(exc)
 
+
 def get_random_past_cob_message():
     return random.choice(messages["close_of_business"])

@@ -2,10 +2,11 @@ import os
 from datetime import datetime, time
 from .utils import get_random_past_cob_message
 
+
 def get_time_until_cob_msg():
     # TODO: HACK: would rather not read this from env var every time we call this func - good enough for now
-    cob_hour = int(os.environ['COB_TIMER_COB_HOUR'])
-    cob_minute = int(os.environ['COB_TIMER_COB_MINUTE'])
+    cob_hour = int(os.environ["COB_TIMER_COB_HOUR"])
+    cob_minute = int(os.environ["COB_TIMER_COB_MINUTE"])
 
     # Calculate the difference in time
     cob = datetime.combine(datetime.now().date(), time(cob_hour, cob_minute))
