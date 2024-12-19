@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "task-tracker-desktop-widget"
-version = "0.2.4"
+version = "0.2.5"
 description = "A hacky desktop widget that displays tasks (e.g. in-progress) from a remote ticketing system"
 authors = ["dp-rp <155602873+dp-rp@users.noreply.github.com>"]
 readme = "README.md"
