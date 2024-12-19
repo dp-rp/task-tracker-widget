@@ -39,5 +39,5 @@ poetry run pre-commit install  # installs pre-commit hooks
 ### Usage
 
 ```bash
-poetry run python -m tasktrackerdesktopwidget
+poetry run launch
 ```
