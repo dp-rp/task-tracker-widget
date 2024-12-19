@@ -15,6 +15,8 @@ I have ADHD, and I pretty often forget which task I'm working on when I context 
 
 **Configuration**
 
+1. Create your own `.env` file (you can use [`.env.example`](./.env.example) for reference)
+
 <!-- TODO: write up steps for ADO work items to get Personal Access Token, along with screenshots showing where to go in the ADO web UI -->
 **TODO**
 
