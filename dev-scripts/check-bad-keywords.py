@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 import sys
-import subprocess
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
-bad_keywords = [kw.casefold() for kw in os.environ["DEV_BAD_KEYWORDS"].split(";")]
+bad_keywords = os.environ["DEV_BAD_KEYWORDS"].split(";")
+bad_keywords_casefolded = [kw.casefold() for kw in bad_keywords]
 
 
 def check_files():
@@ -20,11 +20,11 @@ def check_files():
                     if line.lstrip() == "":
                         continue
                     # casefold for case-insensitive string comparison
-                    line = line.casefold()
-                    for bad_keyword in bad_keywords:
-                        if bad_keyword in line:
+                    line_casefolded = line.casefold()
+                    for bad_kw_idx in range(len(bad_keywords)):
+                        if bad_keywords_casefolded[bad_kw_idx] in line_casefolded:
                             issues.append(
-                                f"Found '{bad_keyword}' in '{filepath}':\n    {line.lstrip()}"
+                                f"Found '{bad_keywords[bad_kw_idx]}' in '{filepath}':\n    {line.lstrip()}"
                             )
         except Exception as e:
             print(f"Error checking {filepath}: {e}")
