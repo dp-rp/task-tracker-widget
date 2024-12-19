@@ -22,11 +22,18 @@ WINDOW_ALPHA_WITHOUT_HOVER = 1.0
 class MovableOverlay:
     def __init__(self, root):
         self.root = root
+
+        # constants
+        self._max_text_width = int(self.root.winfo_screenwidth() / 6)
+
+        # initial states
+        self.set_is_being_dragged(False)
+
         self.root.overrideredirect(True)  # Remove window decorations
         self.root.attributes("-topmost", True)  # Keep the window on top
         # TODO: fix window alignment being not quite right due to timing of getting window dims vs them changing from label content updating
         self.root.geometry(
-            f"+{root.winfo_screenwidth() - root.winfo_width() - 5}+{(root.winfo_screenheight()*0.75) - (root.winfo_height()/2) - 5}"
+            f"+{root.winfo_screenwidth() - self._max_text_width - 5}+{(root.winfo_screenheight()*0.75) - (root.winfo_height()/2) - 5}"
         )  # Position in bottom right corner
         # TODO: set the max width of the window to 200px, but let the height be whatever it is by default
         # self.root.maxsize(200,None)
@@ -40,14 +47,15 @@ class MovableOverlay:
             fg_color="#333333",
             text_color="white",
             justify=ctk.LEFT,
-            wraplength=int(self.root.winfo_screenwidth() / 6),
+            wraplength=self._max_text_width,
         )
         self.label.pack(padx=3, pady=3)
 
         self.start_counter()
 
         # Make the window draggable
-        self.root.bind("<Button-1>", self.on_drag_start)
+        self.root.bind("<ButtonPress-1>", self.on_drag_start)
+        self.root.bind("<ButtonRelease-1>", self.on_drag_end)
         self.root.bind("<B1-Motion>", self.on_drag_motion)
 
         # Create a context menu
@@ -57,11 +65,11 @@ class MovableOverlay:
 
         # When cursor hovering
         # TODO: re-enable transparency on hover once have diagnosed how to fix bug where off-screen text doesn't render correctly when transparency changes and moved
-        # self.root.bind("<Enter>", self.on_hover_start)
+        self.root.bind("<Enter>", self.on_hover_start)
 
         # When cursor stops hovering
         # TODO: re-enable transparency on hover once have diagnosed how to fix bug where off-screen text doesn't render correctly when transparency changes and moved
-        # self.root.bind("<Leave>", self.on_hover_end)
+        self.root.bind("<Leave>", self.on_hover_end)
 
         self.root.configure(
             # Show the "movable" cursor when hovering over the window
@@ -71,14 +79,26 @@ class MovableOverlay:
         )
 
     def on_hover_start(self, e):
+        # If the window is currently being dragged, ignore the position of the cursor
+        if self._is_being_dragged == True:
+            return
+
         self.root.attributes("-alpha", WINDOW_ALPHA_WITH_HOVER)
 
     def on_hover_end(self, e):
         self.root.attributes("-alpha", WINDOW_ALPHA_WITHOUT_HOVER)
 
     def on_drag_start(self, event):
+        self.set_is_being_dragged(True)
+        self.on_hover_end(None)
         self.drag_start_x = event.x
         self.drag_start_y = event.y
+
+    def on_drag_end(self, event):
+        self.set_is_being_dragged(False)
+
+    def set_is_being_dragged(self, is_being_dragged):
+        self._is_being_dragged = is_being_dragged
 
     def on_drag_motion(self, event):
         x = self.root.winfo_x() + event.x - self.drag_start_x
