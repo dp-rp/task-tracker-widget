@@ -6,9 +6,7 @@ import os
 
 load_dotenv()
 
-bad_keywords = (kw.casefold() for kw in os.environ["DEV_BAD_KEYWORDS"].split(";"))
-
-# badKEYword
+bad_keywords = [kw.casefold() for kw in os.environ["DEV_BAD_KEYWORDS"].split(";")]
 
 
 def check_files():
@@ -17,7 +15,12 @@ def check_files():
     for filepath in filepaths_to_check:
         try:
             with open(filepath, "r", encoding="utf-8") as f:
-                for line in (l.casefold() for l in f):
+                for line in f:
+                    # if line without leading whitespace is empty, skip it
+                    if line.lstrip() == "":
+                        continue
+                    # casefold for case-insensitive string comparison
+                    line = line.casefold()
                     for bad_keyword in bad_keywords:
                         if bad_keyword in line:
                             issues.append(
