@@ -1,11 +1,19 @@
 #!/usr/bin/env python3
 import sys
-from dotenv import load_dotenv
+from dotenv import load_dotenv, dotenv_values
 import os
 
 load_dotenv()
 
 bad_keywords = os.environ["DEV_BAD_KEYWORDS"].split(";")
+
+# Add any .env values where the key is prefixed with `SECRET_` to the bad_keywords list
+for key, value in dotenv_values().items():
+    # HACK: quick and dirty split
+    if key.split("_")[0] == "SECRET":
+        bad_keywords.append(value)
+
+
 bad_keywords_casefolded = [kw.casefold() for kw in bad_keywords]
 
 

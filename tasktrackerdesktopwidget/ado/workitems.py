@@ -9,10 +9,10 @@ def get_ado_work_items():
     # TODO: schema validation
 
     # get sensitive config
-    personal_access_token = os.environ["ADO_PERSONAL_ACCESS_TOKEN"]
-    organization_url = os.environ["ADO_ORGANIZATION_URL"]
-    team_name = os.environ["ADO_TEAM_NAME"]
-    project_name = os.environ["ADO_PROJECT_NAME"]
+    personal_access_token = os.environ["SECRET_ADO_PERSONAL_ACCESS_TOKEN"]
+    organization_url = os.environ["SECRET_ADO_ORGANIZATION_URL"]
+    team_name = os.environ["SECRET_ADO_TEAM_NAME"]
+    project_name = os.environ["SECRET_ADO_PROJECT_NAME"]
 
     # Create a connection to the org
     credentials = BasicAuthentication("", personal_access_token)

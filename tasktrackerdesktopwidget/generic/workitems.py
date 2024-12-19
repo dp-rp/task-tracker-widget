@@ -6,11 +6,11 @@ REMOTE_TYPE_ENVVAR_KEY = "TTW_REMOTE_TYPE"
 
 
 def get_ado_generic(ado_work_item):
-    team_name_url_encoded = urllib.parse.quote(os.environ["ADO_TEAM_NAME"])
+    team_name_url_encoded = urllib.parse.quote(os.environ["SECRET_ADO_TEAM_NAME"])
     iteration_path_for_url = ado_work_item.fields["System.IterationPath"].replace(
         "\\", "/"
     )
-    org_url = os.environ["ADO_ORGANIZATION_URL"]
+    org_url = os.environ["SECRET_ADO_ORGANIZATION_URL"]
     return {
         "uid": ado_work_item.id,
         "title": ado_work_item.fields["System.Title"],
