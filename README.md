@@ -30,7 +30,8 @@ I have ADHD, and I pretty often forget which task I'm working on when I context 
 ```bash
 git clone <repository_url>
 cd <root_dir_of_local_repository>
-poetry install
+poetry install  # installs dependencies in their own venv
+poetry run pre-commit install  # installs pre-commit hooks
 ```
 
 ### Usage
