@@ -90,12 +90,15 @@ class MovableOverlay:
 
     def on_drag_start(self, event):
         self.set_is_being_dragged(True)
+        # We don't want any hover-based behavior to occur while dragging
         self.on_hover_end(None)
         self.drag_start_x = event.x
         self.drag_start_y = event.y
 
     def on_drag_end(self, event):
         self.set_is_being_dragged(False)
+        # If we just finished dragging the window, the cursor is likely over it
+        self.on_hover_start(None)
 
     def set_is_being_dragged(self, is_being_dragged):
         self._is_being_dragged = is_being_dragged
