@@ -6,9 +6,8 @@ import customtkinter as ctk
 from .generic.workitems import get_generic_work_items
 from .cob import get_time_until_cob_msg
 
-# TODO: get the output (my in-progress work items) and make it display in a small movable, resizable window that's
-# ... always-on-top that updates once every 5-10 minutes (and it should also go invisible for a couple seconds when
-# ... moused over, just like how I have ElevenClock configured)
+# TODO: make window resizable?
+# TODO: make window go invisible for a couple seconds when moused over? just like how I have ElevenClock configured
 
 # TODO: display a metric for [HOURS LOGGED SO FAR] vs [HOURS LOGGED GOAL]. [HOURS LOGGED GOAL] will be
 # ... `[DAILY_HOUR_LOG_GOAL] * [NUMBER_OF_DAYS_INTO_CURRENT_ITERATION]` (current iteration = current sprint)
@@ -31,12 +30,9 @@ class MovableOverlay:
 
         self.root.overrideredirect(True)  # Remove window decorations
         self.root.attributes("-topmost", True)  # Keep the window on top
-        # TODO: fix window alignment being not quite right due to timing of getting window dims vs them changing from label content updating
         self.root.geometry(
             f"+{root.winfo_screenwidth() - self._max_text_width - 5}+{(root.winfo_screenheight()*0.75) - (root.winfo_height()/2) - 5}"
         )  # Position in bottom right corner
-        # TODO: set the max width of the window to 200px, but let the height be whatever it is by default
-        # self.root.maxsize(200,None)
 
         self.work_items_text = "loading..."
 
@@ -64,11 +60,9 @@ class MovableOverlay:
         self.root.bind("<Button-3>", self.show_context_menu)
 
         # When cursor hovering
-        # TODO: re-enable transparency on hover once have diagnosed how to fix bug where off-screen text doesn't render correctly when transparency changes and moved
         self.root.bind("<Enter>", self.on_hover_start)
 
         # When cursor stops hovering
-        # TODO: re-enable transparency on hover once have diagnosed how to fix bug where off-screen text doesn't render correctly when transparency changes and moved
         self.root.bind("<Leave>", self.on_hover_end)
 
         self.root.configure(
