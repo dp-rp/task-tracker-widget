@@ -6,7 +6,9 @@ import os
 
 load_dotenv()
 
-bad_keywords = os.environ["DEV_BAD_KEYWORDS"].split(";")
+bad_keywords = (kw.casefold() for kw in os.environ["DEV_BAD_KEYWORDS"].split(";"))
+
+# badKEYword
 
 
 def check_files():
@@ -15,7 +17,7 @@ def check_files():
     for filepath in filepaths_to_check:
         try:
             with open(filepath, "r", encoding="utf-8") as f:
-                for line in f:
+                for line in (l.casefold() for l in f):
                     for bad_keyword in bad_keywords:
                         if bad_keyword in line:
                             issues.append(
