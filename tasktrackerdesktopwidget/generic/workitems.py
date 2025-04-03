@@ -11,6 +11,7 @@ def get_ado_generic(ado_work_item):
         "\\", "/"
     )
     org_url = os.environ["SECRET_ADO_ORGANIZATION_URL"]
+    hours_elapsed_field_name = os.environ["SECRET_ADO_HOURS_ELAPSED_FIELD_NAME"]
     return {
         "uid": ado_work_item.id,
         "title": ado_work_item.fields["System.Title"],
@@ -18,6 +19,7 @@ def get_ado_generic(ado_work_item):
             "unique_name": ado_work_item.fields["System.AssignedTo"]["uniqueName"]
         },
         "work_item_web_browser_link": f"{org_url}/{ado_work_item.fields['System.TeamProject']}/_sprints/backlog/{team_name_url_encoded}/{iteration_path_for_url}?workitem={ado_work_item.id}",
+        "hours_elapsed": ado_work_item.fields[hours_elapsed_field_name],
     }
 
 

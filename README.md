@@ -20,6 +20,16 @@ I have ADHD, and I pretty often forget which task I'm working on when I context 
 <!-- TODO: write up steps for ADO work items to get Personal Access Token, along with screenshots showing where to go in the ADO web UI -->
 **TODO**
 
+**How to create a hotkey to open Task Tracker Widget (Windows)**
+
+<!-- TODO: write up steps for creating hotkey to start -->
+**TODO**
+
+**How to make Task Tracker Widget start on boot (Windows)**
+
+<!-- TODO: write up steps for starting on boot -->
+**TODO**
+
 **[anything else important]**
 
 <!-- TODO: write anything else important for getting started -->

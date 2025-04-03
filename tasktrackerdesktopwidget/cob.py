@@ -17,6 +17,10 @@ def get_time_until_cob_msg():
     #     cob = cob + timedelta(days=1)
     #     time_difference = cob - now
 
+    # TODO: add either here or somewhere similar
+    # ... (1) the number of days into the sprint so far
+    # ... (2) in brackets after, the number of days left in the sprint
+
     # Calculate the number of hours left
     seconds_left = time_difference.total_seconds()
     hours_left = f"{seconds_left / 3600:01.1f}"
