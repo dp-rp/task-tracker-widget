@@ -30,6 +30,9 @@ class MovableOverlay:
 
         self.root.overrideredirect(True)  # Remove window decorations
         self.root.attributes("-topmost", True)  # Keep the window on top
+        self.root.attributes(
+            "-toolwindow", True
+        )  # Makes window not appear in task bar and Alt+Tab (which we don't want, because it just adds noise to both)
         self.root.geometry(
             f"+{root.winfo_screenwidth() - self._max_text_width - 5}+{(root.winfo_screenheight()*0.75) - (root.winfo_height()/2) - 5}"
         )  # Position in bottom right corner
