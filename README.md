@@ -1,6 +1,8 @@
 # task-tracker-widget
 A hacky widget that displays in-progress tasks from a central source of truth ticketing system (e.g. Azure DevOps work items)
 
+<!-- TODO: add a feature where the script gives me a "notification" between polls whenever there's a new PR from one of my teammates so I can ask if it's ready for review and review it for them right away to help get them unblocked 🙂 + consider maybe doing the "notification" but also leaving it as a persistent list of currently open PRs from team members? 🤔  -->
+
 ## Purpose
 
 I have ADHD, and I pretty often forget which task I'm working on when I context switch. My current project uses Azure DevOps as a ticketing system, and it's UX isn't convenient enough for me to open a browser tab every time - (a) I'd rather something faster and (b) opening a browser tab opens opportunities for distraction, which is the enemy when trying to be productive on a task.
