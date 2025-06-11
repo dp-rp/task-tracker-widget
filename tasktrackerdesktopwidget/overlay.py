@@ -4,6 +4,7 @@
 import tkinter as tk
 import customtkinter as ctk
 from .generic.workitems import get_generic_work_items
+from .generic.pullrequests import get_generic_pull_requests
 from .cob import get_time_until_cob_msg
 
 # TODO: make window resizable?
@@ -123,7 +124,7 @@ class MovableOverlay:
             work_items = get_generic_work_items()
             work_items_str = "\n----\n".join(
                 [
-                    f"{work_item['uid']}: {work_item['title']}   [ ⧗{work_item['hours_elapsed']} ]"
+                    f"📋 {work_item['uid']}: {work_item['title']}   [ ⧗{work_item['hours_elapsed']} ]"
                     # TODO: temp - the assigned person isn't really necessary to display when I'm only showing work items assigned to me anyway - that
                     # ... being said, I still wanna keep that code there as an example for the moment because it would be google to provide some clarity
                     # ... on how to display who an item is assigned to if I do something like display all the work items under a given PBI in future.
@@ -133,11 +134,25 @@ class MovableOverlay:
                 ]
             )
 
+            pull_requests = get_generic_pull_requests()
+            pull_requests_str = "\n----\n".join(
+                [
+                    f"⤵️ {pr['uid']} {pr['title']} ({pr['namespace']} > {pr['repository']})"
+                    for pr in pull_requests
+                ]
+            )
+
             # Set the label's text
             # TODO: allow the COB countdown to subtract from the "hours left" any meetings/events that have already been blocked out in calendar that have
             # ... a "show as:" value set to anything other than "free" - also make a not for the number of hours subtracted from the COB time remaining if
             # ... any time has been subtracted (e.g. 15min stand-ups + lunch each day mean that even best-case scenario a day is 6.8h long, not 8h long)
-            self.work_items_text = get_time_until_cob_msg() + "\n" + work_items_str
+            self.work_items_text = (
+                get_time_until_cob_msg()
+                + "\n"
+                + work_items_str
+                + "\n"
+                + pull_requests_str
+            )
             self.label.configure(text=str(self.work_items_text))
         except Exception as err:
             print(err)
